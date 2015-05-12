@@ -15,13 +15,21 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\Event;
+namespace Elcodi\Component\Menu\Services\Interfaces;
 
-use Elcodi\Component\Menu\Event\Abstracts\AbstractMenuEvent;
+use Elcodi\Component\Menu\Entity\Menu\Interfaces\MenuInterface;
 
 /**
- * Class PostMenuLoadEvent
+ * Interface MenuChangerInterface
  */
-class PostMenuLoadEvent extends AbstractMenuEvent
+interface MenuChangerInterface
 {
+    /**
+     * Apply change
+     *
+     * @param MenuInterface $menu Menu
+     *
+     * @return $this Self object
+     */
+    public function applyChange(MenuInterface $menu);
 }

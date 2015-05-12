@@ -15,18 +15,17 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\EventListener;
+namespace Elcodi\Component\Menu\Modifier;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 
-use Elcodi\Component\Menu\Event\Abstracts\AbstractMenuEvent;
+use Elcodi\Component\Menu\Entity\Menu\Interfaces\NodeInterface;
+use Elcodi\Component\Menu\Modifier\Interfaces\MenuModifierInterface;
 
 /**
- * Class ActivateFromRequestListener
- *
- * @author Berny Cantos <be@rny.cc>
+ * Class MenuActiveModifier
  */
-class ActivateFromRequestEventListener
+class MenuExpandedModifier implements MenuModifierInterface
 {
     /**
      * @var RequestStack
@@ -46,12 +45,11 @@ class ActivateFromRequestEventListener
     }
 
     /**
-     * Mark menu entries as active if matches the current route.
-     * Also mark entries as expanded if any subnode is the current route.
+     * Modifier the menu node
      *
-     * @param AbstractMenuEvent $event
+     * @param NodeInterface $menuNode Menu node
      */
-    public function onMenuPostLoad(AbstractMenuEvent $event)
+    public function modify(NodeInterface $menuNode)
     {
         $masterRequest = $this
             ->requestStack
@@ -63,25 +61,12 @@ class ActivateFromRequestEventListener
 
         $currentRoute = $masterRequest->get('_route');
 
-        $event->addFilter(function (array $item) use ($currentRoute) {
-
-            if (in_array($currentRoute, $item['activeUrls'])) {
-                $item['active'] = true;
-            }
-
-            return $item;
-        });
-
-        $event->addFilter(function (array $item) use ($currentRoute) {
-
-            $item['expanded'] = false;
-            foreach ($item['subnodes'] as $subnode) {
-                if (in_array($currentRoute, $subnode['activeUrls'])) {
-                    $item['expanded'] = true;
+        $menuNode
+            ->getSubnodes()
+            ->forAll(function ($_, NodeInterface $menuNode) use ($currentRoute) {
+                if (in_array($currentRoute, $menuNode->getActiveUrls())) {
+                    $menuNode->setExpanded(true);
                 }
-            }
-
-            return $item;
-        });
+            });
     }
 }

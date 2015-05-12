@@ -15,13 +15,19 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\Event;
+namespace Elcodi\Component\Menu\Modifier\Interfaces;
 
-use Elcodi\Component\Menu\Event\Abstracts\AbstractMenuEvent;
+use Elcodi\Component\Menu\Entity\Menu\Interfaces\NodeInterface;
 
 /**
- * Class PostMenuCompilationEvent
+ * Interface MenuModifierInterface
  */
-class PostMenuCompilationEvent extends AbstractMenuEvent
+interface MenuModifierInterface
 {
+    /**
+     * Modifier the menu node
+     *
+     * @param NodeInterface $menuNode Menu node
+     */
+    public function modify(NodeInterface $menuNode);
 }
