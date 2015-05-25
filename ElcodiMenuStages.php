@@ -15,25 +15,20 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\Services\Interfaces;
-
-use Elcodi\Component\Menu\Entity\Menu\Interfaces\MenuInterface;
+namespace Elcodi\Component\Menu;
 
 /**
- * Interface MenuChangerInterface
+ * Class ElcodiMenuStages
  */
-interface MenuChangerInterface
+final class ElcodiMenuStages
 {
     /**
-     * Apply change
-     *
-     * @param MenuInterface $menu  Menu
-     * @param string        $stage Stage
-     *
-     * @return $this Self object
+     * This stage defined the moment when the menu is built before caching it
      */
-    public function applyChange(
-        MenuInterface $menu,
-        $stage
-    );
+    const BEFORE_CACHE = 'before_cache';
+
+    /**
+     * This stage defined the moment when the menu is built after caching it
+     */
+    const AFTER_CACHE = 'after_cache';
 }

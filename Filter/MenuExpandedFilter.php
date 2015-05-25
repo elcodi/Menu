@@ -21,12 +21,12 @@ use Elcodi\Component\Menu\Entity\Menu\Interfaces\NodeInterface;
 use Elcodi\Component\Menu\Filter\Interfaces\MenuFilterInterface;
 
 /**
- * Class MenuDisabledFilter
+ * Class MenuExpandedFilter
  */
-class MenuDisabledFilter implements MenuFilterInterface
+class MenuExpandedFilter implements MenuFilterInterface
 {
     /**
-     * Filter all disabled nodes
+     * Filter all menus without url that has no children
      *
      * @param NodeInterface $menuNode Menu node
      *
@@ -34,6 +34,8 @@ class MenuDisabledFilter implements MenuFilterInterface
      */
     public function filter(NodeInterface $menuNode)
     {
-        return $menuNode->isEnabled();
+        return
+            !$menuNode->getSubnodes()->isEmpty() ||
+            $menuNode->getUrl();
     }
 }

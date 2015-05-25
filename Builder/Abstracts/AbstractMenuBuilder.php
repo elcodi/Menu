@@ -15,25 +15,29 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\Filter;
+namespace Elcodi\Component\Menu\Builder\Abstracts;
 
-use Elcodi\Component\Menu\Entity\Menu\Interfaces\NodeInterface;
-use Elcodi\Component\Menu\Filter\Interfaces\MenuFilterInterface;
+use Elcodi\Component\Menu\Factory\NodeFactory;
 
 /**
- * Class MenuDisabledFilter
+ * Class AbstractMenuBuilder
  */
-class MenuDisabledFilter implements MenuFilterInterface
+class AbstractMenuBuilder
 {
     /**
-     * Filter all disabled nodes
+     * @var NodeFactory
      *
-     * @param NodeInterface $menuNode Menu node
-     *
-     * @return boolean Node must be rendered
+     * Menu node factory
      */
-    public function filter(NodeInterface $menuNode)
+    protected $menuNodeFactory;
+
+    /**
+     * Construct
+     *
+     * @param NodeFactory $menuNodeFactory Menu node factory
+     */
+    public function __construct(NodeFactory $menuNodeFactory)
     {
-        return $menuNode->isEnabled();
+        $this->menuNodeFactory = $menuNodeFactory;
     }
 }

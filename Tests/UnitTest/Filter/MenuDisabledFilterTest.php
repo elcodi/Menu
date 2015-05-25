@@ -15,7 +15,7 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Component\Menu\Tests\Filter;
+namespace Elcodi\Component\Menu\Tests\UnitTest\Filter;
 
 use PHPUnit_Framework_TestCase;
 
